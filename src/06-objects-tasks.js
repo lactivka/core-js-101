@@ -53,7 +53,9 @@ function getJSON(obj) {
  *
  */
 function fromJSON(proto, json) {
-  return Object.create(proto, Object.create(JSON.parse(json)));
+  const obj = JSON.parse(json);
+  const values = Object.values(obj);
+  return new proto.constructor(...values);
 }
 
 
@@ -111,9 +113,11 @@ function fromJSON(proto, json) {
  *  For more examples see unit tests.
  */
 
+
 const cssSelectorBuilder = {
   element(/* value */) {
     throw new Error('Not implemented');
+    // this.stringify = () => value;
   },
 
   id(/* value */) {
